@@ -8,7 +8,8 @@ const adminData = require('./admin');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-  res.render('shop');
+  const products = adminData.products;
+  res.render('shop', {prods: products, docTitle: 'Shop'}); //render metod omogucava nam da si ovaj drugi parametar rendira u nasem view
 });
 
 module.exports = router;
