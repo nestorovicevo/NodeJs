@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+app.set('view engine', 'pug'); //ovom i linijom ispod govorimo da hocemo da kompajliramo pug engine i gde mozemo nadci ove templejte
+app.set('views', 'views'); //ova druga vrednost je ime foldera u kom se nalaze views, u ovom slucaju je ista
+
 const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
