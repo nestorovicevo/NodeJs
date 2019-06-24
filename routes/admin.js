@@ -10,7 +10,7 @@ const products = [];
 
 // /admin/add-product => GET
 router.get('/add-product', (req, res, next) => {
-  res.render('add-product', {pageTitle: 'Add product', path: '/admin/add-product'}); //render metod omogucava nam da si ovaj drugi parametar rendira u nasem view
+  res.render('add-product', {pageTitle: 'Add product', path: '/admin/add-product', formsCSS: true, productCSS: true, activeAddProduct: true }); //render metod omogucava nam da si ovaj drugi parametar rendira u nasem view
 });
 
 // /admin/add-product => POST
