@@ -11,13 +11,13 @@ app.set('view engine', 'ejs'); //ovom i linijom ispod govorimo da hocemo da komp
                                             //ali je bitno da onako kako nazovemo, to ce biti sufiks za ime fajla u views
 app.set('views', 'views'); //ova druga vrednost je ime foldera u kom se nalaze views, u ovom slucaju je ista
 
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', adminData.routes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
