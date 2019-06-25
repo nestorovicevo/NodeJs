@@ -2,16 +2,10 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const expressHbs = require('express-handlebars');
 
 const app = express();
 
-app.engine('hbs', expressHbs({
-    layoutsDir: 'views/layouts/',
-    defaultLayout: 'main-layout',
-    extname: 'hbs'
-}));
-app.set('view engine', 'hbs'); //ovom i linijom ispod govorimo da hocemo da kompajliramo pug engine i gde mozemo nadci ove templejte
+app.set('view engine', 'ejs'); //ovom i linijom ispod govorimo da hocemo da kompajliramo pug engine i gde mozemo nadci ove templejte
                                         //naknadno smo promenili pug u handlebars zato sto radimo sad sa drugim, i taj je za express
                                         // i tu moze da stoji i npr handlebars, ali mora onda i gore i dole da pise handlebars, mora pisati identicno
                                             //ali je bitno da onako kako nazovemo, to ce biti sufiks za ime fajla u views
@@ -30,4 +24,4 @@ app.use((req, res, next) => {
     res.status(404).render('404', { pageTitle: 'Page Not Found' });
 });
 
-app.listen(3200);
+app.listen(3300);
