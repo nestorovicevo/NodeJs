@@ -11,10 +11,15 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getProduct = (req, res, next) => {
-  const prodId = req.params.productId;  ///porductId mora da bude isto ime kao sto je u ruti navedeno
-  console.log(prodId);
-  res.redirect('/');
-}
+  const prodId = req.params.productId;  // productId jer je isto tako u ruti navedeno
+  Product.findById(prodId, product => {
+    res.render('shop/product-detail', {
+      product: product,
+      pageTitle: product.title,
+      path: '/products'
+    });
+  });
+};
 
 exports.getIndex = (req, res, next) => {
   Product.fetchAll(products => {
@@ -35,7 +40,7 @@ exports.getCart = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
   res.render('shop/orders', {
-    path: '/Orders',
+    path: '/orders',
     pageTitle: 'Your Orders'
   });
 };
