@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 
 const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
+const Product = require('./models/product');
+const User = require('./models/user');
+
 
 const app = express();
 
@@ -25,8 +28,12 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
+User.hasMany(Product);
+
+
 sequelize
-.sync()  // ovo automatski pravi od modela tabele u bazi!!
+.sync({ force: true })  // ovo automatski pravi od modela tabele u bazi!! ,, dok force: true adds a DROP TABLE IF EXISTS before trying to create the table - if you force, existing tables will be overwritten.
 .then(result => {
     // console.log(result);
     app.listen(3000);
