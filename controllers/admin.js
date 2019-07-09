@@ -34,8 +34,10 @@ exports.getEditProduct = (req, res, next) => {
     return res.redirect('/');
   }
   const prodId = req.params.productId;
-  Product.findByPk(prodId)  ///findByPK je alternativa, jer nece da radi na findByID
-    .then(product => {
+  req.user.getProducts({where: {id: prodId}})
+  // Product.findByPk(prodId)  ///findByPK je alternativa, jer nece da radi na findByID
+    .then(products => {
+      const product = products[0]; //da bi sadrzaj forme bio popunjen prethodnim informacijama
       if (!product) {
         return res.redirect('/');
       }
@@ -73,7 +75,8 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.findAll()
+  req.user
+    .getProducts()
     .then(products => {
       res.render('admin/products', {
         prods: products,
