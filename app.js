@@ -48,8 +48,8 @@ Product.belongsToMany(Cart, { through: CartItem});
 
 
 sequelize
-.sync({ force: true })  // ovo automatski pravi od modela tabele u bazi!! ,, dok force: true adds a DROP TABLE IF EXISTS before trying to create the table - if you force, existing tables will be overwritten.
-// .sync()
+// .sync({ force: true })  // ovo automatski pravi od modela tabele u bazi!! ,, dok force: true adds a DROP TABLE IF EXISTS before trying to create the table - if you force, existing tables will be overwritten.
+.sync()
 .then(result => {
     return User.findByPk(1);
     // console.log(result);
@@ -62,6 +62,9 @@ sequelize
   })
   .then(user => {
     // console.log(user);
+    return user.createCart();
+  })
+  .then(user => {
     app.listen(3000);
   })
   .catch(err => {
