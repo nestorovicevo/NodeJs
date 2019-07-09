@@ -7,6 +7,8 @@ const errorController = require('./controllers/error');
 const sequelize = require('./util/database');
 const Product = require('./models/product');
 const User = require('./models/user');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
 
 
 const app = express();
@@ -39,11 +41,15 @@ app.use(errorController.get404);
 
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
+User.hasOne(Cart);
+Cart.belongsTo(User); //a i ne mora ovo
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem});
 
 
 sequelize
-// .sync({ force: true })  // ovo automatski pravi od modela tabele u bazi!! ,, dok force: true adds a DROP TABLE IF EXISTS before trying to create the table - if you force, existing tables will be overwritten.
-.sync()
+.sync({ force: true })  // ovo automatski pravi od modela tabele u bazi!! ,, dok force: true adds a DROP TABLE IF EXISTS before trying to create the table - if you force, existing tables will be overwritten.
+// .sync()
 .then(result => {
     return User.findByPk(1);
     // console.log(result);
